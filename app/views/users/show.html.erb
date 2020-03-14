@@ -1,0 +1,35 @@
+<div class="show_div">
+  <% unless @user.avatar_identifier.blank? %>
+    <%= image_tag(@user.avatar.medium_url) %>
+  <% else %>
+    <%= image_tag("no_avatar_image_thumb.jpg") %>
+  <% end %>
+  <p>
+    <strong><%= label_tag User.human_attribute_name(:first_name) %>:</strong>
+    <%= @user.first_name %>
+  </p>
+
+  <p>
+    <strong><%= label_tag User.human_attribute_name(:last_name) %>:</strong>
+    <%= @user.last_name %>
+  </p>
+
+  <p>
+    <strong><%= label_tag User.human_attribute_name(:email) %>:</strong>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <strong><%= label_tag User.human_attribute_name(:role) %>:</strong>
+    <%= @user.role ? @user.role.name  : "" %>
+  </p>
+
+  <p>
+    <strong><%= label_tag User.human_attribute_name(:id) %>:</strong>
+    <%= @user.id %>
+  </p>
+
+  <% if can? :update, :user %>
+    <%= link_to t(:edit), edit_user_path(@user.id) %>
+  <% end %>
+</div>

@@ -1,0 +1,123 @@
+.user_pagination{
+  width:20%;
+}
+
+.user_index_table{
+  width:60%;
+}
+.search_role{
+  width: 100%;
+}
+
+.avatar_container{
+  display: inline-grid;
+  height: 100px;
+  width: 100px;
+  overflow: hidden
+}
+
+.avatar_img{
+  height: 100px;
+    width: 100px;
+}
+
+@mixin th_td_details {
+  th, td{
+    text-align: right;
+    padding:5px;
+    font-weight: bold;
+  }
+}
+
+@mixin auto_margins{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search_table{
+  margin-bottom: 10px;
+  @include th_td_details;
+  @include auto_margins;
+}
+
+h1.object_title{
+  text-align: center;
+}
+
+.pagination{
+  width:100%;
+  display: inline;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.ui-datepicker-calendar  {
+  td:hover, td:hover a:visited,td:hover a:link{
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #ffffff !important;
+  }
+}
+
+.table-hover  {
+  tr:hover td, tr:hover a:visited,tr:hover a:link{
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #ffffff !important;
+  }
+}
+
+.table-hover {
+  font-weight: bold;
+  border-color: #ffffff !important;
+   margin: 0 auto;
+}
+.table-bordered td, .table-bordered th{
+    border-color: #000000 !important;
+}
+
+.table-hover th {
+  color: #000000;
+  background-color: #428cca;
+  text-align: center;
+}
+.table-hover td {
+  text-align: center;
+  vertical-align: middle !important;
+}
+body{
+  width:100%;
+}
+textarea {
+  max-width: 100%;
+}
+
+.sub_data{
+  margin-left:auto !important;
+  margin-right:auto !important;
+  width:50% !important;
+}
+
+.bottom_link{
+  width: 100%;
+  text-align: center;
+}
+
+.form_div{
+  margin:auto;
+  width:400px;
+}
+.show_div{
+  margin: 25px auto;
+  width:500px;
+}
+.comments_div{
+  margin: 25px auto;
+  width:500px;
+}
+
+.simple_input{
+  width:100% !important;
+  text-align: center;
+  text-align-last:center;
+}

@@ -1,0 +1,88 @@
+.simple_input{
+  min-width: 400px;
+}
+body {
+  width:100%;
+  font-family: Arial, sans-serif;
+  color: #024457;
+  background-color: #ffffff!important;
+}
+.navbar {
+  margin-bottom: 0!important;
+  border-radius: 0!important;
+  font-weight: bolder;
+}
+.nav{
+  color: #ffffff!important;
+  font-size: 15px !important;
+}
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+  height: 90vh;
+}
+/* Set black background color, white text and some padding */
+.footer{
+  height: 5vh;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+  }
+  .row.content {height:auto;}
+}
+
+.flag_icon_navbar{
+  margin-top: -3px;
+}
+
+.search_table {
+  border: 1px solid #000000;
+}
+.table table{
+  border: 3px solid #000000;
+}
+.table tr:nth-child(odd) {
+  background-color: #e6e6e6;
+}
+.search_table td{
+  padding:5px;
+}
+
+$link_color: #000000;
+$Link_color_hover: #ffffff;
+
+.index_link{
+  &:link {
+    font-weight: bolder !important;
+    color: $link_color;
+    text-decoration: none !important;
+  }
+  &:link:hover {
+    color: $Link_color_hover;
+    text-decoration: none !important;
+  }
+
+  &:hover {
+    color: $Link_color_hover;
+    text-decoration: none;
+    background-color: inherit;
+  }
+  &:visited:hover{
+    color: $Link_color_hover;
+    text-decoration: none;
+    background-color: inherit;
+  }
+  &:visited {
+    font-weight: bolder !important;
+    color: $link_color;
+    text-decoration: none;
+    background-color: inherit;
+  }
+}

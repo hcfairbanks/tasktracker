@@ -1,0 +1,12 @@
+<div class="show_div">
+  <p>
+    <strong><%= label_tag Priority.human_attribute_name(:name) %>:</strong>
+    <%= @priority.name %>
+  </p>
+  <p>
+    <strong><%= label_tag Priority.human_attribute_name(:description) %>:</strong>
+    <%= @priority.description %>
+  </p>
+  <%= link_to t(:edit), edit_priority_path(@priority) %> |
+  <%= link_to t(:back), priorities_path %>
+</div>

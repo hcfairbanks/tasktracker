@@ -1,0 +1,14 @@
+<div class="show_div">
+  <p>
+    <strong><%= label_tag RequestType.human_attribute_name(:name) %>:</strong>
+    <%= @request_type.name %>
+  </p>
+
+  <p>
+    <strong><%= label_tag RequestType.human_attribute_name(:description) %>:</strong>
+    <%= @request_type.description %>
+  </p>
+
+  <%= link_to t(:edit), edit_request_type_path(@request_type) %> |
+  <%= link_to t(:back), request_types_path %>
+</div>

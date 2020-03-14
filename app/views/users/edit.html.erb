@@ -1,0 +1,19 @@
+<h1 class="object_title"><%= t("user.editing_user") %></h1>
+
+<%= render 'form' %>
+
+<div class="bottom_link">
+  <%= label_tag :login_attempts %>:&nbsp;
+  <%= @user.login_attempts %>
+  <br/>
+  <%= link_to t(:show), @user %>
+  <% if can? :index, :user %>
+    | <%= link_to t(:back), users_path %>
+  <% end %>
+    | <%= link_to t("users.delete_account"), @user, method: :delete, data: { confirm: t(:confirm) } %>
+  <% if can? :reset_login_attempts, :user%>
+    <%= form_tag("/users/#{@user.id}/reset_login_attempts", method: :post) do %>
+      <%= submit_tag t("user.reset_login_attempts") %>
+    <% end %>
+  <% end %>
+</div>

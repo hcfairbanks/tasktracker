@@ -1,0 +1,8 @@
+<h1 class="object_title"><%= t("status.editing_status") %></h1>
+
+<%= render 'form', status: @status %>
+
+<div class="bottom_link">
+  <%= link_to t(:show), @status %> |
+  <%= link_to t(:back), statuses_path %>
+</div>

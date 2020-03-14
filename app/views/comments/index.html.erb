@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="object_title"><%= t("comment.comments")%></h1>
+
+<table class="table table-responsive table-hover table-bordered sub_data">
+  <tr>
+    <th><%= label_tag Comment.human_attribute_name(:user) %></th>
+    <th><%= label_tag Comment.human_attribute_name(:task) %></th>
+    <th><%= label_tag Comment.human_attribute_name(:content) %></th>
+    <th colspan="3"></th>
+  </tr>
+  <% @comments.each do |comment| %>
+    <tr>
+      <td><%= comment.user_id %></td>
+      <td><%= comment.task_id %></td>
+      <td><%= comment.content.truncate(20) %></td>
+      <td><%= link_to t(:show), comment %></td>
+      <td><%= link_to t(:edit), edit_comment_path(comment) %></td>
+      <td><%= link_to t(:delete), comment, method: :delete, data: { confirm: t(:confirm) } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="bottom_link">
+  <%= link_to t("comment.new_comment"), new_comment_path %>
+</div>

@@ -1,0 +1,19 @@
+<% unless @task.attachments.blank? %>
+  <hr class="comments_hr" />
+
+  <h3><%= t("task.attachments") %></h3>
+
+  <% @task.attachments.each  do | attachment | %>
+    <% if attachment.doc_identifier.presence %>
+      <div style="display:inline-grid;margin:10px;">
+        <%= link_to image_tag(  attachment.doc.thumb_url,
+                                class:"attachment_image"),
+                                attachment.doc.doc_url,
+                                title: attachment.original_name,
+                                target: '_blank'%>
+
+        <div><%= attachment.original_name.truncate(9) %></div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

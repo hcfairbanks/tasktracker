@@ -1,0 +1,8 @@
+<h1 class="object_title"><%= t("comment.editing_comment")%></h1>
+
+<%= render 'form', comment: @comment %>
+
+<div class="bottom_link">
+  <%= link_to t(:show), @comment %> |
+  <%= link_to t(:back), comments_path %>
+</div>

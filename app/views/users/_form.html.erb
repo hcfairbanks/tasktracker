@@ -1,0 +1,86 @@
+<div class="form_div">
+  <% if @user.errors.any? %>
+
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> <%= t("errors.plural")%></h2>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+
+  <% end %>
+
+  <%= form_for @user, html: { multipart: true } do |f| %>
+      <span id="original_avatar_source" style="display:none;">
+        <%= @user.avatar_identifier.blank? ? "/site_images/default_avatar.jpg" : @user.avatar.medium_url %>
+      </span>
+      <div class="avatar_container">
+        <%= image_tag(@user.avatar_identifier.blank? ?
+                      "/site_images/default_avatar.jpg" :
+                      @user.avatar.medium_url,
+                      id:"avatar_img",
+                      alt:"Default Avatar",
+                      height:'100') %>
+      </div>
+    <div class="field">
+      <%= f.label t("user.avatar") %><br>
+      <%= f.file_field :avatar,
+                        onchange:"preview_avatar(this);",
+                        id: "file_input_avatar" %>
+      <button type="button"
+              onclick="cancel_avatar_upload();"
+              id="cancel_button"
+              style="display:none;">Cancel</button>
+
+    </div>
+
+    <div class="field">
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name, required:"true", class:"simple_input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name, required:"true", class:"simple_input" %>
+    </div>
+
+    <div class="field">
+      <%= label_tag t("user.password") %><br>
+      <% pw_required = action_name != "edit" %>
+      <%= f.password_field :password, class:"simple_input", required:pw_required %>
+    </div>
+
+    <div class="field">
+      <%= label_tag t("user.password_confirmation") %><br>
+      <%= f.password_field :password_confirmation, class:"simple_input", required:pw_required, oninput:"check_pw_match(this)" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %><br>
+      <%= f.text_field :email,type: "email", required:"true", class:"simple_input" %>
+    </div>
+
+    <% if logged_in? && current_user.role.name == Role::ADMIN%>
+      <div class="field">
+        <%= f.label :role %><br>
+        <%= f.collection_select(:role_id,
+                                Role.all,
+                                :id,
+                                :name,
+                                { prompt:"---" },
+                                { required:"true",
+                                  class:"simple_input"})  %>
+      </div>
+    <% end %>
+    <div class="actions">
+      <% if controller.action_name == "new" %>
+        <%= recaptcha_tags %>
+      <% end %>
+      <%= f.submit "Submit"%>
+    </div>
+
+  <% end %>
+
+</div>

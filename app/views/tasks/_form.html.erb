@@ -1,0 +1,172 @@
+<div id="task_id" class="hide_me"><%= @task.id %></div>
+<div class="form_div">
+  <%= form_for task  do |f| %>
+    <% if task.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(task.errors.count, "error") %> <%= t("errors.plural")%></h2>
+        <ul>
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :title %><br/>
+      <%= f.text_area :title, cols:"50", rows:"3",required:true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %><br/>
+      <%= f.text_area :description, cols:"50", rows:"6",required:true %>
+    </div>
+
+    <% if current_user.role.name == Role::ADMIN %>
+      <div class="field">
+        <%= f.label :reported_by %>
+        <%= f.collection_select( :reported_by_id,
+                                  User.joins(:role).where("roles.name != (?) AND roles.name != (?)", Role::UNASSIGNED, Role::DEACTIVATED),
+                                  :id,
+                                  :first_name,
+                                  { required:true,
+                                    selected: @task.reported_by ? @task.reported_by.id : current_user.id})%>
+      </div>
+    <% else %>
+      <div class="field">
+        <%= f.collection_select( :reported_by_id,
+                                  User.joins(:role).where("roles.name != (?) AND roles.name != (?)", Role::UNASSIGNED, Role::DEACTIVATED),
+                                  :id,
+                                  :first_name,
+                                  { required:true,
+                                    selected: @task.reported_by ? @task.reported_by.id : current_user.id},
+                                  { style:"display:none;"})%>
+      </div>
+    <% end %>
+
+    <% if current_user.role.name == Role::ADMIN %>
+      <div class="field">
+        <%= f.label :assigned_to %>
+        <%= f.collection_select( :assigned_to_id,
+                                  User.joins(:role).where("roles.name != (?) AND roles.name != (?)", Role::UNASSIGNED, Role::DEACTIVATED),
+                                  :id,
+                                  :first_name,
+                                  { required:true,
+                                    selected: @task.assigned_to ? @task.assigned_to.id : User.where(first_name: 'Unassigned').first.id})%>
+      </div>
+      <% end %>
+
+    <div class="field">
+      <%= f.label :request_type %>
+      <%= f.collection_select( :request_type_id,
+                               RequestType.all,
+                               :id,
+                               :name,
+                               {prompt: true},
+                               {required:true})%>
+    </div>
+
+    <div class="field">
+      <%= f.label :member_facing %>
+      <%= f.check_box :member_facing %>
+    </div>
+
+    <div class="field">
+      <%= f.label :vertical %>
+      <%= f.collection_select( :vertical_id,
+                               Vertical.all,
+                               :id,
+                               :name,
+                               {prompt: true},
+                               {required:true})%>
+    </div>
+
+    <% if current_user.role.name == Role::ADMIN %>
+      <div class="field">
+        <%= f.label :status %>
+        <%= f.collection_select( :status_id,
+                                 Status.all,
+                                 :id,
+                                 :name,
+                                 {prompt: true},
+                                 {required:true})%>
+      </div>
+    <% else %>
+      <div class="field">
+        <%= f.text_field :status_id,
+                          value: @task.status_id ? @task.status_id : Status.where(name:"Triage").ids.first,
+                          style:"display:none" %>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :required_date %>
+      <%= f.text_field :required_by,
+                        id:"datepicker",
+                        required: true,
+                        style:"text-align:center;" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :link %>
+      <%= f.text_field :link %>
+    </div>
+
+    <div class="field">
+      <%= f.label :priority %>
+      <%= f.collection_select( :priority_id,
+                               Priority.all,
+                               :id,
+                               :name,
+                               {prompt: true},
+                               {required:true})%>
+    </div>
+      <%= f.label :add_attachments %>
+      <%= button_tag t("select_files"),
+                     class: "btn btn-default",
+                     type: "button",
+                     onclick: "$('#fileselect').click();",
+                     style: "display:block;"  %>
+    <div>
+      <%= f.file_field :attachment,
+                        multiple: true,
+                        name: "task[attachments_attributes][][doc]",
+                        onchange: "preview_attachment(this);",
+                        style: "display:none;" %>
+      <!-- This input is for the preview.
+           The line has a js component to it.
+           THe load order is why it is and html tag not a rails tag-->
+      <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" style="display:none;"/>
+    </div>
+
+    <div id="filedrag">
+      &nbsp;<%= t(:drop_files) %>
+      <div id="img_holder">
+          <ul id="sortable">
+            <% unless @task.attachments.blank? %>
+              <% @task.attachments.each  do | attachment | %>
+                <% if attachment.doc_identifier.presence %>
+                <li>
+                    <%= link_to image_tag(attachment.doc.thumb_url,
+                                          class:"doc",
+                                          data: { id: attachment.id }),
+                                          attachment.doc.doc_url,
+                                          title: attachment.original_name,
+                                          target: '_blank'
+                                          %>
+                    <div class="file_title_sm"><%= attachment.original_name.truncate(10) %></div>
+                    <img src="/site_images/red_x_1.png"
+                          onmouseover="this.src='/site_images/red_x_2.png'"
+                          onmouseout="this.src='/site_images/red_x_1.png'"
+                          class="rm_btn"
+                          onclick="rm_attch('<%= attachment.id %>','<%= attachment.original_name %>',this);">
+                    <% end %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+      </div>
+    </div>
+    <div id="upload_notices"></div>
+  <%= f.submit id: "task_sub_btn" %>
+<% end %>

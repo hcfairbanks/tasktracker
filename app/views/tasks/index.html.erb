@@ -1,0 +1,131 @@
+<h1 class="object_title"><%= t("task.index") %></h1>
+<%= form_tag('/tasks',class:'task_search_form', method: "get") do %>
+  <table class="search_table">
+    <tr>
+      <td><%= label_tag Task.human_attribute_name(:reported_by) %></td>
+      <td><%= select_tag :reported_by,
+                options_from_collection_for_select( User.joins(:role).where("roles.name != ?", Role::UNASSIGNED),
+                                                    :id,
+                                                    :first_name,
+                                                    params[:reported_by]),
+                                                    { class:"dropdown_search",
+                                                      multiple: false,
+                                                      prompt:"---"} %>
+      </td>
+      <td><%= label_tag Task.human_attribute_name(:assigned_to) %></td>
+      <td><%= select_tag :assigned_to,
+                options_from_collection_for_select( User.joins(:role).where("roles.name != ?", Role::UNASSIGNED),
+                                                    :id,
+                                                    :first_name,
+                                                    params[:assigned_to]),
+                                                    { class:"dropdown_search",
+                                                      multiple: false, prompt:"---"} %>
+      </td>
+      <td><%= label_tag Task.human_attribute_name(:vertical) %></td>
+      <td><%= select_tag :vertical,
+                options_from_collection_for_select( Vertical.all,
+                                                    :id,
+                                                    :name,
+                                                    params[:vertical]),
+                                                    { class:"dropdown_search",
+                                                      multiple: false,
+                                                      prompt:"---"} %>
+      </td>
+      <td><%= label_tag Task.human_attribute_name(:request_type) %></td>
+      <td><%= select_tag :request_type,
+                options_from_collection_for_select( RequestType.all,
+                                                    :id,
+                                                    :name,
+                                                    params[:request_type]),
+                                                    { class:"dropdown_search",
+                                                      multiple: false,
+                                                      prompt:"---"} %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= label_tag Task.human_attribute_name(:priority) %></td>
+      <td><%= select_tag :priority,
+                options_from_collection_for_select( Priority.all,
+                                                    :id,
+                                                    :name,
+                                                    params[:priority]),
+                                                    { class:"dropdown_search",
+                                                      multiple: false,
+                                                      prompt:"---"} %>
+      </td>
+      <td><%= label_tag Task.human_attribute_name(:status) %></td>
+      <td><%= select_tag :status,
+                options_from_collection_for_select( Status.all,
+                                                    :id,
+                                                    :name,
+                                                    params[:status]),
+                                                    { class:"dropdown_search",
+                                                      multiple: false,
+                                                      prompt:"---"} %></td>
+      <td><%= label_tag Task.human_attribute_name(:title) %></td>
+      <td><%= text_field_tag :title, params[:title] %></td>
+      <td><%= label_tag Task.human_attribute_name(:description) %></td>
+      <td><%= text_field_tag :description, params[:description] %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag Task.human_attribute_name(:id) %></td>
+      <td><%= number_field_tag :id, params[:id], step: 1 %></td>
+      <td><%= label_tag t(:order_by) %></td>
+      <td><%= select_tag :order_by,
+                options_for_select( [ ["Newest","created_at DESC"],
+                                      ["Oldest","created_at ASC"],
+                                      ],params[:order_by]),
+                                      style:"width:100%;" %>
+      </td>
+      <td colspan="4" style="text-align:right;">
+        <%= submit_tag 'Search', class:"btn btn-primary", tabindex:"10" %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+<div class="pagination_details">
+  <%= page_entries_info @tasks %>
+</div>
+<table class="table table-responsive table-hover" >
+  <tr class="header_row" >
+    <th><%= Task.human_attribute_name(:id) %></th>
+    <th><%= Task.human_attribute_name(:priority) %></th>
+    <th><%= Task.human_attribute_name(:request_type) %></th>
+    <th><%= Task.human_attribute_name(:title) %></th>
+    <th><%= Task.human_attribute_name(:description) %></th>
+    <th><%= Task.human_attribute_name(:reporter) %></th>
+    <th><%= Task.human_attribute_name(:vertical) %></th>
+    <th><%= Task.human_attribute_name(:assigned_to) %></th>
+    <th><%= Task.human_attribute_name(:required_by) %></th>
+    <th><%= Task.human_attribute_name(:status) %></th>
+    <% if current_user.role.name == Role::ADMIN %>
+      <th colspan="2"></th>
+    <% else %>
+    <% end %>
+  </tr>
+  <% @tasks.each do |task| %>
+    <tr class="color_row" data-href='/tasks/<%= task.id %>'>
+      <td class='clickable-td'><%= task.id %></td>
+      <td class='clickable-td'><%= task.priority.name %></td>
+      <td class='clickable-td'><%= task.request_type.name %></td>
+      <td class='clickable-td'><%= task.title.truncate(50) %></td>
+      <td class='clickable-td'><%= task.description.truncate(50) %></td>
+      <td class='clickable-td'><%= task.reported_by.first_name %></td>
+      <td class='clickable-td'><%= task.vertical.name %></td>
+      <td class='clickable-td'><%= task.assigned_to.first_name %></td>
+      <td class='clickable-td'><%= task.required_by.strftime("%d/%b/%y") if !task.required_by.blank? %></td>
+      <td class='clickable-td'><%= task.status.name %></td>
+      <% if current_user.role.name == Role::ADMIN %>
+        <td><%= link_to t(:edit), edit_task_path(task),class:"index_link" %></td>
+        <td><%= link_to t(:destroy), task,
+                                   method: :delete,
+                                   data: { confirm: t(:confirm) },
+                                   class:"index_link" %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<div class="digg_pagination">
+  <%= will_paginate @tasks, container: false, previous_label: t(:previous), next_label: t(:next) %>
+</div>

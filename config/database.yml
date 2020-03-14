@@ -1,0 +1,19 @@
+  default: &default
+    host: <%= ENV['DB_HOST'] %>
+    adapter: postgresql
+    encoding: utf8
+    pool: 5
+    username: <%= ENV['TASKTRACKER_DATABASE_USER'] %>
+    password: <%= ENV['TASKTRACKER_DATABASE_PASSWORD'] %>
+  development:
+    <<: *default
+    database: <%= ENV['TASKTRACKER_DATABASE_DEVELOPMENT'] %>
+  test:
+    <<: *default
+    database: <%= ENV['TASKTRACKER_DATABASE_TEST'] %>
+  production:
+    <<: *default
+    database: <%= ENV['TASKTRACKER_DATABASE_PRODUCTION'] %>
+    pool: 5
+    username: <%= ENV['TASKTRACKER_DATABASE_USER'] %>
+    password: <%= ENV['TASKTRACKER_DATABASE_PASSWORD'] %>

@@ -1,0 +1,228 @@
+.thumb_image_container{
+  display: inline-grid;
+  height: 50px;
+  width: 50px;
+  overflow: hidden
+
+}
+.thumb_image{
+  height: 50px;
+}
+
+.hide_me{
+  display:none;
+}
+
+.doc_uploading {
+  opacity: 0.5;
+  width: 70px;
+  height: 60px;
+}
+
+.dropdown_search {
+  width: 100%;
+  display:block;
+}
+
+.task_search_form {
+  margin-top: 5px;
+}
+
+.new_task {
+  padding-bottom: 25px;
+}
+
+.uploading{
+  color: #008000;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.upload_error{
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.task_show_comments_table {
+  table{
+
+  border: 0px;
+  padding: 5px;}
+    th, td{
+
+     background-color: #ffffff;
+     padding: 5px;
+   }
+ }
+
+.commentor_name{
+  font-weight: bold;
+  font-size: 20px
+}
+
+.text_block{
+  max-width:500px;
+  background-color: #ffffff;
+  word-wrap:break-word;
+  padding:10px;
+  font-weight:bold;
+}
+
+.attachment_image{
+  height:50px;
+  display:inline-grid;
+}
+
+hr.comments_hr{
+  width: 100%;
+  color: #000000;
+  height: 1px;
+  background-color: #000000;
+}
+
+.comment_text_block{
+  width:435px;
+  word-wrap:break-word;
+  padding-right:5px;
+}
+
+.comment_edit_block{
+  width:400px;
+  word-wrap:break-word;
+  min-height:10px;
+}
+
+.avatar_thumb{
+  height:50px;
+}
+
+.comment_form_text{
+  padding:10px;
+}
+
+.image_delete_button{
+  margin-top:5px;
+}
+
+$bootstrap_blue: #000000;
+$background-color: #ffffff;
+$font-stack:    Helvetica, sans-serif;
+$primary-color:  #ffffff;
+.digg_pagination {
+  text-align:center;
+  width:48%;
+  margin:0px auto 20px !important;
+  background-color:none;
+  font-weight: bolder;
+  cursor: default;
+  margin: 0 auto;
+}
+  .digg_pagination a, .digg_pagination span, .digg_pagination em {
+    padding: 0.2em 0.5em;
+    display: block;
+    float: left;
+    margin-right: 1px; }
+  .digg_pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd; }
+  .digg_pagination .current {
+    font-style: normal;
+    font-weight: bolder;
+    background: $bootstrap_blue;
+    color: #ffffff;
+    border: 1px solid $bootstrap_blue; }
+  .digg_pagination a {
+    text-decoration: none;
+    color: #000000;
+    border: 1px solid #000000; }
+    .digg_pagination a:hover, .digg_pagination a:focus {
+      color: #ffffff;
+      background: $bootstrap_blue;
+      border-color: #000033; }
+  .digg_pagination .page_info {
+    background: $bootstrap_blue;
+    color: #ffffff;
+    padding: 0.4em 0.6em;
+    width: 22em;
+    margin-bottom: 0.3em;
+    text-align: center; }
+    .digg_pagination .page_info b {
+      color: #000033;
+      background: $bootstrap_blue;
+      padding: 0.1em 0.25em; }
+  .digg_pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+  * html .digg_pagination {
+    height: 1%; }
+  *:first-child + html .digg_pagination {
+    overflow: hidden; }
+
+.pagination_details {
+  text-align:center;
+  width:31%;
+  margin:0 auto 5px;
+  background-color:none;
+}
+
+[draggable] {
+    user-select: none;
+}
+
+.rm_btn {
+  width: 25px;
+  height: 25px;
+}
+
+.submit_button {
+  display: block;
+  position: relative;
+  bottom:0px;
+}
+
+.doc {
+  width: 70px;
+  height: 60px;
+}
+
+.file_title_sm {
+  font-size: small;
+}
+
+#img_holder {
+  clear: both;
+  padding: 1.625em 0 0;
+  overflow: auto;
+}
+
+#filedrag {
+  min-height: 200px;
+  display: none;
+  font-weight: bold;
+  text-align: center;
+  margin: 1em 0;
+  color: #555;
+  border: 2px dashed #555;
+  border-radius: 7px;
+  cursor: default;
+}
+
+#sortable {
+  margin-bottom: 6000;
+  padding: 0;
+}
+
+#sortable li {
+  margin: 3px 3px 3px 0;
+  padding: 1px;
+  float: left;
+  width: 100px;
+  height: 150px;
+  font-size: 4em;
+  text-align: center;
+  overflow: hidden;
+}

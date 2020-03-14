@@ -1,0 +1,14 @@
+<div class="show_div">
+  <p>
+    <strong><%= label_tag Status.human_attribute_name(:name) %>:</strong>
+    <%= @status.name %>
+  </p>
+
+  <p>
+    <strong><%= label_tag Status.human_attribute_name(:description) %>:</strong>
+    <%= @status.description %>
+  </p>
+
+  <%= link_to t(:edit), edit_status_path(@status) %> |
+  <%= link_to t(:back), statuses_path %>
+</div>

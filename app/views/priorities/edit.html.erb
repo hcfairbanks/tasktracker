@@ -1,0 +1,8 @@
+<h1 class="object_title"><%= t("priority.editing_priority")%></h1>
+
+<%= render 'form', priority: @priority %>
+
+<div class="bottom_link">
+  <%= link_to t(:show), @priority %> |
+  <%= link_to t(:back), priorities_path %>
+</div>

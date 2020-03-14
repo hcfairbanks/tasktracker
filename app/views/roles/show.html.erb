@@ -1,0 +1,15 @@
+<div class="show_div">
+  <p>
+    <strong><%= label_tag Role.human_attribute_name(:name) %>:</strong>
+    <strong><%= label_tag Role.human_attribute_name(:description) %>:</strong>
+    <%= @role.name %>
+  </p>
+
+  <p>
+    <strong><%= t("role.description") %>:</strong>
+    <%= @role.description %>
+  </p>
+
+  <%= link_to t(:edit), edit_role_path(@role) %> |
+  <%= link_to t(:back), roles_path %>
+</div>

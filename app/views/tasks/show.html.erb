@@ -1,0 +1,119 @@
+<div class="show_div">
+  <p>
+    <strong><%= Task.human_attribute_name(:priority) %>:</strong>
+    <%= @task.priority.name %>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:member_facing) %>:</strong>
+    <%= @task.member_facing ? t(:yes) : t(:no) %>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:request_type) %>:</strong>
+    <%= @task.request_type.name %>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:title) %>:</strong>
+    <div class="text_block">
+      <%= @task.title %>
+    </div>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:description) %>:</strong>
+    <div class="text_block">
+      <%= @task.description %>
+    </div>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:reported_by) %>:</strong>
+    <%= User.find(@task.reported_by).first_name %>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:assigned_to) %>:</strong>
+    <%= @task.assigned_to ? User.find(@task.assigned_to).first_name : t(:unassigned) %>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:required_by) %>:</strong>
+    <%= @task.required_by.strftime("%d/%b/%y") %>
+  </p>
+
+  <p>
+    <strong><%= Task.human_attribute_name(:vertical) %>:</strong>
+    <%= @task.vertical.name %>
+  </p>
+
+  <p>
+    <strong><%= t(:link) %>:</strong>
+    <%= @task.link %>
+  </p>
+
+  <span style="display:none;" id="edit_form_name">edit_task_<%= @task.id %></span>
+
+  <%= render 'attachment', task: @task %>
+
+  <hr class="comments_hr" />
+  <h2><% t("comment.comments") %></h2>
+  <%= form_for(@comment) do |f| %>
+    <%= f.text_area :content, cols:"125", rows:"5", class:"comment_form_text" %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :task_id, value: @task.id %>
+    <%= f.submit "submit" %>
+  <% end %>
+  <hr/>
+  <% @comments.each do | comment | %>
+    <table class="task_show_comments_table">
+      <tr id="comment_<%= comment.id %>">
+        <td rowspan="2" style="vertical-align:top;">
+          <% if !comment.user.avatar_identifier.blank? %>
+            <%= image_tag( comment.user.avatar.small_url ) %>
+          <% else %>
+            <%= image_tag("no_avatar_image_thumb.jpg", class:"avatar_thumb") %>
+          <% end %>
+        </td>
+        <td class="commentor_name">
+          <%= comment.user.first_name %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="comment_content_<%= comment.id %>" class="comment_text_block">
+            <%= comment.content %>
+          </div>
+          <div id="<%= comment.id %>" style="display:none;" >
+            <%= form_for(comment) do |f| %>
+              <%= f.text_area :content , class:"comment_edit_block", rows:"8"  %>
+              <%= f.hidden_field :task_id, value: @task.id %>
+              <%= f.submit "Submit"%>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+      <% if can? :edit, Comment %>
+        <% if current_user.id == comment.user_id || current_user.is_admin? %>
+          <tr>
+            <td></td>
+            <td style="text-align:left;">
+              <button id="<%= 'edit_' + comment.id.to_s %>"  onclick=show("<%= comment.id %>") ><%= t(:edit) %></button>
+              <%= button_to t(:delete), comment_path(comment),
+                                      data: {confirm: t(:confirm)},
+                                      method: :delete,
+                                      form: {style: 'display:inline;width:25px;'} %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  <br/>
+  <% end %>
+
+  <div class="bottom_link">
+    <%= link_to t(:edit), edit_task_path(@task) %>
+  </div>
+
+</div>

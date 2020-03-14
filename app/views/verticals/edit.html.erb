@@ -1,0 +1,8 @@
+<h1 class="object_title"><%= t("vertical.editing_vertical") %></h1>
+
+<%= render 'form', vertical: @vertical %>
+
+<div class="bottom_link">
+  <%= link_to t(:show), @vertical %> |
+  <%= link_to t(:back), verticals_path %>
+</div>

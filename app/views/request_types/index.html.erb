@@ -1,0 +1,22 @@
+<h1 class="object_title"><%= t("request-type.request_types") %></h1>
+
+<table class="table table-responsive table-hover table-bordered sub_data">
+  <tr>
+    <th><%= label_tag RequestType.human_attribute_name(:name) %></th>
+    <th><%= label_tag RequestType.human_attribute_name(:description) %></th>
+    <th colspan="3"></th>
+  </tr>
+  <% @request_types.each do |request_type| %>
+    <tr>
+      <td><%= request_type.name %></td>
+      <td><%= request_type.description %></td>
+      <td><%= link_to t(:show), request_type %></td>
+      <td><%= link_to t(:edit), edit_request_type_path(request_type) %></td>
+      <td><%= link_to t(:delete), request_type, method: :delete, data: { confirm: t(:confirm) } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="bottom_link">
+  <%= link_to t("request-type.new_request_type"), new_request_type_path %>
+</div>

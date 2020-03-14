@@ -1,0 +1,13 @@
+<div class="show_div">
+  <p>
+    <strong><%= label_tag Vertical.human_attribute_name(:name) %>:</strong>
+    <%= @vertical.name %>
+  </p>
+  <p>
+    <strong><%= label_tag Vertical.human_attribute_name(:description) %>:</strong>
+    <%= @vertical.description %>
+  </p>
+
+  <%= link_to t(:edit), edit_vertical_path(@vertical) %> |
+  <%= link_to t(:back), verticals_path %>
+</div>

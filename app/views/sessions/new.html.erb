@@ -1,0 +1,19 @@
+<% if !logged_in? %>
+  <div class="form_div">
+    <h1><%= t(:login) %></h1>
+    <%= form_tag sessions_path do %>
+      <div class="field">
+        <%= label_tag :email %><br />
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div class="field">
+        <%= label_tag :password %><br />
+        <%= password_field_tag :password %>
+      </div>
+      <div class="actions"><%= submit_tag t(:login) %></div>
+    <% end %>
+    <div id="user_header">
+      <%= link_to t(:sign_up), new_user_path %>
+    </div>
+  </div>
+<% end %>
