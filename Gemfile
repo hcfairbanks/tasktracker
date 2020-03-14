@@ -14,7 +14,7 @@ gem 'jquery-ui-rails'
 gem "i18n-js"
 gem 'mocha', require: false
 gem 'pg'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.12'
 gem 'rails', '~> 5.0.2'
 gem 'rails-controller-testing'
 gem "recaptcha"
