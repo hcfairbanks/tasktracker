@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'bcrypt', '~> 3.1.7'
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'cancancan'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'carrierwave-base64'
