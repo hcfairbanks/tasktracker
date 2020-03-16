@@ -15,8 +15,8 @@
 
 # Installation
 ###
-- Follow this guide for base setup instructions
-- https://gorails.com/setup/ubuntu/16.04
+- Follow the guide on my private application or use these base setup instructions
+- https://gorails.com/setup/ubuntu/18.04
 - ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-linux]
 - carrierwave dependencies
   - sudo apt-get install imagemagick libmagickwand-dev
@@ -35,8 +35,7 @@
 ###
 # When booting up the application for the first time
 * rake db:create db:migrate db:seed
-* login with email harry.fairbanks@test.com pw password for admin role
-* login with email bob@test.com pw password for business role
+* login with email bob@test.com pw password for admin role
 ###
 # Tests
 * bundle exec rspec
